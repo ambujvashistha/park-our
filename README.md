@@ -1,171 +1,111 @@
-# 🅿️ ParkEase - Smart Parking Management System
+# ParkEase - Smart Parking Management System
 
 A comprehensive parking lot status and management application for commercial complexes, built with React Native (Expo) and Node.js.
 
-## 📋 Overview
+## Overview
 
-ParkEase helps commercial complexes monitor and share the occupancy status of their parking lots in real-time. The system provides separate interfaces for administrators to manage parking slots and visitors to find available parking.
+ParkEase helps commercial complexes monitor and share the occupancy status of their parking lots in real-time. The system provides separate interfaces for administrators to manage parking slots and visitors to find available parking. It features a robust backend API and a cross-platform mobile application.
 
-## ✨ Features
+## Features
+
+### Authentication
+- Secure Admin Login & Signup
+- JWT-based session management
 
 ### Admin Features
-- Configure parking slots with custom labels (A1, A2, etc.)
-- Set slot types (Two-wheeler/Four-wheeler)
-- Change slot states (Free/Occupied/Reserved)
-- View change logs for each slot
-- Delete parking slots
-- Real-time slot management
+- **Dashboard**: Real-time overview of all parking slots.
+- **Slot Management**: Create, update, and delete parking slots.
+- **Status Control**: Mark slots as Free, Occupied, or Reserved.
+- **Logs**: View historical activity for each slot.
+- **Types**: Support for Two-wheeler and Four-wheeler slots.
 
 ### Visitor Features
-- View total and per-type parking statistics
-- See all parking slots in a visual grid
-- Get recommended parking slot (first available)
-- Auto-refresh every 10 seconds
-- Pull-to-refresh functionality
+- **Live Status**: View real-time availability of parking slots.
+- **Visual Grid**: Interactive grid view of the parking lot.
+- **Recommendations**: Smart suggestion for the nearest available slot.
+- **Auto-Refresh**: Data updates automatically every 10 seconds.
 
 ### Analytics
-- Current day utilization percentage
-- Visual progress indicators
-- Occupancy insights
-- Breakdown by slot type
+- **Utilization**: Real-time occupancy percentage.
+- **Breakdown**: Detailed stats by vehicle type.
+- **Insights**: Visual progress indicators and trends.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Runtime**: Node.js
-- **Framework**: Express
+- **Framework**: Express.js
 - **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JWT (JSON Web Tokens) & Bcrypt
 - **API**: RESTful JSON endpoints
 
 ### Mobile App
 - **Framework**: React Native with Expo
-- **Navigation**: React Navigation
-- **Styling**: React Native StyleSheet with custom design system
-- **HTTP Client**: Axios
+- **Navigation**: React Navigation (Stack)
+- **Networking**: Axios
+- **Styling**: Custom Design System with Linear Gradients
+- **Maps**: React Native Maps integration
 
-## 📁 Project Structure
-
-```
-parkease/
-├── backend/              # Node.js backend
-│   ├── config/          # Database configuration
-│   ├── models/          # Mongoose models
-│   ├── routes/          # API routes
-│   └── server.js        # Express server
-└── mobile/              # React Native app
-    └── src/
-        ├── components/  # Reusable components
-        ├── screens/     # Screen components
-        ├── navigation/  # Navigation setup
-        ├── config/      # API configuration
-        └── styles/      # Design system
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (local or Atlas)
-- Expo Go app (for mobile testing)
+## Getting Started
 
 ### Backend Setup
 
-1. Navigate to backend directory:
-```bash
-cd backend
-```
+1.  **Navigate to the backend directory:**
+    ```bash
+    cd backend
+    ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-3. Configure environment variables in `.env`:
-```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/parkease
-```
+3.  **Configure Environment Variables:**
+    Create a `.env` file in the `backend` directory with the following content:
+    ```env
+    PORT=3000
+    MONGODB_URI=mongodb://localhost:27017/parkease
+    JWT_SECRET=your_super_secret_key_here
+    ```
 
-4. Start the server:
-```bash
-npm run dev
-```
+4.  **Seed Database (Optional):**
+    Initialize the database with default slots and an admin user.
+    ```bash
+    npm run seed
+    ```
+
+5.  **Start the Server:**
+    ```bash
+    npm run dev
+    ```
+    The server will start on `http://localhost:3000`.
 
 ### Mobile App Setup
 
-1. Navigate to mobile directory:
-```bash
-cd mobile
-```
+1.  **Navigate to the mobile directory:**
+    ```bash
+    cd mobile
+    ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-3. Update API endpoint in `src/config/api.js` (use your IP for physical devices)
+3.  **Configure API Endpoint:**
+    Open `src/config/api.js` and update the `API_BASE_URL` with your computer's local IP address.
+    > **Note:** Do not use `localhost` if testing on a physical device. Use your machine's LAN IP (e.g., `192.168.1.x`).
+    ```javascript
+    const API_BASE_URL = 'http://YOUR_IP_ADDRESS:3000/api';
+    ```
 
-4. Start Expo:
-```bash
-npx expo start
-```
+4.  **Start Expo:**
+    ```bash
+    npx expo start
+    ```
 
-5. Scan QR code with Expo Go app or use simulator
+5.  **Run on Device:**
+    - **Physical Device:** Scan the QR code using the **Expo Go** app (Android) or Camera app (iOS).
+    - **Simulator:** Press `a` for Android Emulator or `i` for iOS Simulator.
 
-## 📱 Screenshots & Usage
 
-### Admin Flow
-1. Open app and select "Admin Dashboard"
-2. Create parking slots with labels and types
-3. Tap slots to change states or view logs
-4. Pull down to refresh
-
-### Visitor Flow
-1. Open app and select "Visitor View"
-2. See recommended slot at the top
-3. Browse statistics and all slots
-4. Auto-refreshes every 10 seconds
-
-### Analytics Flow
-1. Open app and select "Analytics"
-2. View utilization percentage
-3. See occupancy breakdown
-4. Get insights on parking availability
-
-## 🎨 Design Highlights
-
-- **Modern UI**: Vibrant gradients and smooth animations
-- **Dark Theme**: Eye-friendly dark color scheme
-- **State Colors**:
-  - 🟢 Free: Green gradient
-  - 🔴 Occupied: Red gradient
-  - 🔵 Reserved: Blue gradient
-- **Touch Optimized**: Native mobile interactions
-- **Responsive**: Adapts to different screen sizes
-
-## 🔌 API Endpoints
-
-### Admin (`/api/admin`)
-- `POST /slots` - Create slot
-- `GET /slots` - Get all slots
-- `PUT /slots/:id` - Update slot state
-- `GET /slots/:id/logs` - Get logs
-- `DELETE /slots/:id` - Delete slot
-
-### Visitor (`/api/visitor`)
-- `GET /stats` - Get statistics
-- `GET /slots` - Get all slots
-- `GET /recommended` - Get recommended slot
-
-### Analytics (`/api/analytics`)
-- `GET /utilization` - Get utilization percentage
-
-## 📝 License
-
-ISC
-
-## 👨‍💻 Development
-
-For detailed setup and development instructions, see:
-- [Backend README](backend/README.md)
-- [Mobile README](mobile/README.md)

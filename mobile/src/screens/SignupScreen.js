@@ -25,7 +25,6 @@ const SignupScreen = ({ navigation }) => {
     const { signup } = useAuth();
 
     const handleSignup = async () => {
-        // Validation
         if (!name.trim() || !email.trim() || !password.trim()) {
             Alert.alert('Error', 'Please fill in all fields');
             return;
@@ -42,7 +41,6 @@ const SignupScreen = ({ navigation }) => {
         }
 
         setLoading(true);
-        // Always register as visitor
         const result = await signup(name.trim(), email.toLowerCase().trim(), password, 'visitor');
         setLoading(false);
 
